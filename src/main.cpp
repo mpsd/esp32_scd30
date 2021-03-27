@@ -74,9 +74,18 @@ void setup()
   else {
     Serial.println("Could not obtain firmware level");
   }
+  
+  uint16_t TempOffset=0;
+  if (airSensor.setTemperatureOffset(TempOffset)) {
+      Serial.println("Starting Temperature Recalibration");
+    }
+    else {
+      Serial.println("FAILED");
+    }
 }
 
 unsigned long StartMillis=millis();
+uint16_t val16;
 
 void loop()
 {
@@ -92,6 +101,10 @@ void loop()
     Serial.print(" humidity(%):");
     Serial.print(airSensor.getHumidity(), 1);
 
+    Serial.print(" Temp Offset:");
+    airSensor.getTemperatureOffset(&val16);
+    Serial.print(val16, 1);
+
     Serial.println();
   }
   else
@@ -105,6 +118,7 @@ void loop()
     else {
       Serial.println("FAILED");
     }
+
     delay(5000);
     StartMillis = millis();
   }
