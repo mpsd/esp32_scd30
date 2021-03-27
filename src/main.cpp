@@ -75,7 +75,7 @@ void setup()
     Serial.println("Could not obtain firmware level");
   }
   
-  uint16_t TempOffset=0;
+  uint16_t TempOffset=400;
   if (airSensor.setTemperatureOffset(TempOffset)) {
       Serial.println("Starting Temperature Recalibration");
     }
