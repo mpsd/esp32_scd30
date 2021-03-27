@@ -74,19 +74,12 @@ void setup()
   else {
     Serial.println("Could not obtain firmware level");
   }
-  
-  uint16_t TempOffset=400;
-  if (airSensor.setTemperatureOffset(TempOffset)) {
-      Serial.println("Starting Temperature Recalibration");
-    }
-    else {
-      Serial.println("FAILED");
-    }
 }
 
 unsigned long StartMillis=millis();
-uint16_t val16;
-
+uint16_t val16;           // to read current Temperature Offset
+uint16_t TempOffset=400;  // to set Temperature Offset 0.01 C = 1 / 4.0 C = 400, the offset is taken off the measured value !!! 100 means measured value - 1.0 C
+  
 void loop()
 {
   
@@ -114,6 +107,13 @@ void loop()
     Serial.print("Starting SCD30 calibration: ");
     if (airSensor.setForceRecalibration(400)) {
       Serial.println("Starting Forced Recalibration");
+    }
+    else {
+      Serial.println("FAILED");
+    }
+    
+    if (airSensor.setTemperatureOffset(TempOffset)) {
+      Serial.println("Starting Temperature Recalibration");
     }
     else {
       Serial.println("FAILED");
