@@ -113,7 +113,7 @@ void loop()
     }
     
     if (airSensor.setTemperatureOffset(TempOffset)) {
-      Serial.println("Starting Temperature Recalibration");
+      Serial.println("Set Temperature Offset");
     }
     else {
       Serial.println("FAILED");
